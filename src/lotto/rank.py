@@ -30,4 +30,3 @@ class Rank(Enum):
             if rank.match_cnt == match_cnt and rank.bonus_match == bonus:
                 return rank
         return cls.NONE
-    
