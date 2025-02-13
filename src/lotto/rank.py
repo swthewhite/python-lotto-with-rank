@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Rank(Enum):
     """
     로또 당첨 순위 정의하는 클래스
@@ -29,3 +30,4 @@ class Rank(Enum):
             if rank.match_cnt == match_cnt and rank.bonus_match == bonus:
                 return rank
         return cls.NONE
+    
