@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Rank(Enum):
     """
     로또 당첨 순위 정의하는 클래스
