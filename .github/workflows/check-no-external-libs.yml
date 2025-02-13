@@ -23,11 +23,12 @@ jobs:
           allowed_modules = {'sys', 'os', 'math', 'random', 'datetime', 're', 'enum'}
 
           def is_internal_module(module_name):
-              \"\"\" 내부 모듈(`src/` 폴더 내 Python 파일)인지 확인 \"\"\"
-              module_path = os.path.join('src', module_name.replace('.', '/') + '.py')
-              module_dir = os.path.join('src', module_name.replace('.', '/'))
-              
-              # 디버깅 메시지
+              \"\"\" 내부 모듈(`src/lotto/` 폴더 내 모듈)인지 확인 \"\"\"
+              package_based_path = module_name.replace('.', '/')
+              module_path = os.path.join('src', package_based_path + '.py')
+              module_dir = os.path.join('src', package_based_path)
+
+              # 디버깅 출력
               print(f'Checking if {module_name} is internal: {module_path}, {module_dir}')
 
               return os.path.exists(module_path) or os.path.isdir(module_dir)
