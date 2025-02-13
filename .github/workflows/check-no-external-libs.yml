@@ -26,6 +26,10 @@ jobs:
               \"\"\" 내부 모듈(`src/` 폴더 내 Python 파일)인지 확인 \"\"\"
               module_path = os.path.join('src', module_name.replace('.', '/') + '.py')
               module_dir = os.path.join('src', module_name.replace('.', '/'))
+              
+              # 디버깅 메시지
+              print(f'Checking if {module_name} is internal: {module_path}, {module_dir}')
+
               return os.path.exists(module_path) or os.path.isdir(module_dir)
 
           def check_imports(file_path):
@@ -35,10 +39,12 @@ jobs:
                       if isinstance(node, ast.Import):
                           for alias in node.names:
                               if alias.name not in allowed_modules and not is_internal_module(alias.name):
-                                  raise SystemExit(f'❌ External library detected: {alias.name} in {file_path}')
+                                  print(f'❌ External library detected: {alias.name} in {file_path}')
+                                  raise SystemExit(1)
                       elif isinstance(node, ast.ImportFrom):
                           if node.module and node.module not in allowed_modules and not is_internal_module(node.module):
-                              raise SystemExit(f'❌ External library detected: {node.module} in {file_path}')
+                              print(f'❌ External library detected: {node.module} in {file_path}')
+                              raise SystemExit(1)
 
           for root, _, files in os.walk('src'):
               for file in files:
